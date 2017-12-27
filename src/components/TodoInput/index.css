@@ -1,0 +1,112 @@
+/* 字体图标 */
+@font-face {
+  font-family: 'iconfont';
+  src: url('../../assets/iconfont/iconfont.eot');
+  src: url('../../assets/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../../assets/iconfont/iconfont.woff') format('woff'),
+  url('../../assets/iconfont/iconfont.ttf') format('truetype'),
+  url('../../assets/iconfont/iconfont.svg#iconfont') format('svg');
+}
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:24px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  color:#ccc;
+}
+
+.todo_input{
+  height:65px;
+  box-shadow: 0px 1px 2px #ccc;
+}
+.todo_input span{
+  margin-left:20px;
+  cursor:pointer;
+}
+.todo_input input {
+  width: 460px;
+  height: 100%;
+  margin-left: 20px;
+  font-size: 20px;
+  border:none;
+  outline:none;
+  color: #555;
+}
+.todo_input input::-webkit-input-placeholder{
+  color: #ccc;
+  font-size:20px;
+  font-style:italic;
+}
+.footer {
+  background:#fff;
+  display:block;
+  padding:8px 5px;
+}
+.clearfix:after {
+  content:"";
+  clear:both;
+  display:block;
+}
+.footer div {
+  float:left;
+  font-size:14px;
+  color:#666;
+  font-weight:400;
+  margin-right:75px;
+}
+.footer div:nth-child(3){
+  float:right;
+  margin-right:0;
+  cursor:pointer;
+}
+.footer div.center span {
+  padding:0 5px;
+  cursor:pointer;
+}
+.footer div.center span:nth-child(2) {
+  margin:0 18px;
+}
+.active {
+  border:1px solid rgba(175, 47, 47, 0.2);
+  border-radius:3px;
+}
+.todo_lists li {
+  list-style: none;
+  padding: 18px 20px;
+  border-bottom: 1px solid #ededed;
+}
+.todo_lists li span {
+  margin-left:20px;
+  font-size: 24px;
+  color: #555;
+}
+.todo_lists li span.isChecked {
+  text-decoration: line-through;
+  color:#ccc;
+}
+.todo_lists li i {
+  cursor:pointer;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border:1px solid #ccc;
+  border-radius:50%;
+  margin-bottom: -5px;
+}
+.todo_lists li b {
+  font-size: 24px;
+  float: right;
+  color: rgba(175, 47, 47, 0.5);
+  display:none;
+  cursor:pointer;
+}
+.todo_lists li b:hover {
+  color: rgba(175, 47, 47,1);
+}
+.todo_lists li:hover b{
+  display:block;
+}
+.todo_lists li i.checked {
+  background:#ccc;
+}
