@@ -8,8 +8,8 @@ export default class TodoInput extends React.Component{
     super(props)
     this.state = {
 
-      todoLists:[],// 待做
-      doLists:[],// 已做
+      todoNum:0,// 待做
+      doNum:0,// 已做
       lists:[],// 显示
       thing:"",
     }
@@ -31,10 +31,9 @@ export default class TodoInput extends React.Component{
         thing:this.state.thing
       }
       this.state.lists.push(item)
-      this.state.todoLists.push(item)
       //添加成功后
       this.setState({
-        todoLists:this.state.todoLists,
+        todoNum:this.state.lists.length,
         lists:this.state.lists,
         thing:''
       })
@@ -52,42 +51,30 @@ export default class TodoInput extends React.Component{
     $(e.target).addClass("active").siblings().removeClass("active")
   
     const type = $(e.target).data("type")
-
+    var list = []
     if(type==1){
-      this.state.lists = this.state.lists
-      this.setState({
-        lists:this.state.lists
-      })
+      list = this.state.lists
     }else if(type==2){
-      this.state.lists = this.state.todoLists
-      this.setState({
-        lists:this.state.lists
+      list = this.state.lists.filter(item=>{
+        return !item.isDo
       })
     }else{
-      this.state.lists = this.state.doLists
-      this.setState({
-        lists:this.state.lists
+      list = this.state.lists.filter(item=>{
+        return item.isDo
       })
     }
+    this.setState({
+      lists:list
+    })
 
  }
 
  // 点击圆圈选择当前thing是否已完成
  itemCheck(e){
    const index = $(e.target).parent().data("index")
-  this.state.lists[index].isDo = !this.state.lists[index].isDo
-  const todoLists = this.state.lists.filter(item=>{
-    return !item.isDo
-  })
-  const doLists = this.state.lists.filter(item=>{
-    return item.isDo
-  })
-
-  this.setState({
-    lists:this.state.lists,
-    todoLists:todoLists,
-    doLists:doLists
-  })
+   this.state.lists[index].isDo = !this.state.lists[index].isDo
+   console.log(this.state.lists)
+   this.public()
 }
 
 // 点击删除
@@ -97,15 +84,33 @@ delete(e){
   this.setState({
     lists:this.state.lists
   })
-
-   
+  this.public()
 } 
 
 // 清空已完成的thing
 clearCompleted(){
-  this.state.doLists.length=0
+  this.state.doNum = 0
+  const lists = this.state.lists.filter(item=>{
+    return !item.isDo
+  })
   this.setState({
-    doLists:this.state.doLists
+    lists:lists
+  })
+}
+
+//公共
+public(){
+  const todoNum = this.state.lists.filter(item=>{
+    return !item.isDo
+  }).length
+  const doNum = this.state.lists.filter(item=>{
+    return item.isDo
+  }).length
+
+  this.setState({
+    lists:this.state.lists,
+    todoNum,
+    doNum
   })
 }
 
@@ -132,14 +137,14 @@ clearCompleted(){
         </div>
         <div className="footer clearfix" style={ this.state.lists.length>0?styles.show:styles.hide }>
           <div className="left">
-            {this.state.todoLists.length} items left
+            {this.state.todoNum} items left
           </div>
           <div className="center">
             <span className="active" onClick={(e)=>{this.findType(e)}} data-type='1'>All</span>
             <span  onClick={(e)=>{this.findType(e)}} data-type='2'>Active</span>
             <span  onClick={(e)=>{this.findType(e)}} data-type='3'>Completed</span>
           </div>
-          <div className="bottom" style={this.state.doLists.length>0?styles.show:styles.hide} onClick={()=>{this.clearCompleted()}}>
+          <div className="bottom" style={this.state.doNum>0?styles.show:styles.hide} onClick={()=>{this.clearCompleted()}}>
             Clear completed
           </div>
         </div>
